@@ -1,4 +1,4 @@
-module github.com/destinyhover/microservices-proto/order
+module github.com/destinyhover/microservices-proto/golang/order
 
 go 1.24.6
 
