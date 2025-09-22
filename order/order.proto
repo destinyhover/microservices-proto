@@ -1,7 +1,7 @@
 syntax = "proto3";
 package order;
 
-option go_package = "github.com/destinyhover/microservices-proto/order";
+option go_package = "github.com/destinyhover/microservices-proto/golang/order;order";
 
 message OrderItem{
     string product_code = 1;
