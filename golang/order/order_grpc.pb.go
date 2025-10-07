@@ -18,7 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrderClient interface {
-	Create(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*GetOrderResponse, error)
+	Create(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*CreateOrderResponse, error)
 	Get(ctx context.Context, in *GetOrderRequest, opts ...grpc.CallOption) (*GetOrderResponse, error)
 }
 
@@ -30,8 +30,8 @@ func NewOrderClient(cc grpc.ClientConnInterface) OrderClient {
 	return &orderClient{cc}
 }
 
-func (c *orderClient) Create(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*GetOrderResponse, error) {
-	out := new(GetOrderResponse)
+func (c *orderClient) Create(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*CreateOrderResponse, error) {
+	out := new(CreateOrderResponse)
 	err := c.cc.Invoke(ctx, "/order.Order/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -52,7 +52,7 @@ func (c *orderClient) Get(ctx context.Context, in *GetOrderRequest, opts ...grpc
 // All implementations must embed UnimplementedOrderServer
 // for forward compatibility
 type OrderServer interface {
-	Create(context.Context, *CreateOrderRequest) (*GetOrderResponse, error)
+	Create(context.Context, *CreateOrderRequest) (*CreateOrderResponse, error)
 	Get(context.Context, *GetOrderRequest) (*GetOrderResponse, error)
 	mustEmbedUnimplementedOrderServer()
 }
@@ -61,7 +61,7 @@ type OrderServer interface {
 type UnimplementedOrderServer struct {
 }
 
-func (UnimplementedOrderServer) Create(context.Context, *CreateOrderRequest) (*GetOrderResponse, error) {
+func (UnimplementedOrderServer) Create(context.Context, *CreateOrderRequest) (*CreateOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedOrderServer) Get(context.Context, *GetOrderRequest) (*GetOrderResponse, error) {
@@ -133,5 +133,5 @@ var Order_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "order.proto",
+	Metadata: "order/order.proto",
 }
